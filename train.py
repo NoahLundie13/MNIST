@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+import numpy as np
 
 transform = transforms.Compose([
     transforms.ToTensor(),
@@ -81,17 +82,18 @@ def test(model, test_loader, device):
 
 # --------------------------------------------------------------------------------------------------------------------------- #
 
-model = CNN()
-loss_func = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+if __name__ == "__main__":
+    model = CNN()
+    loss_func = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
 
-epochs = 10
-for epoch in range(epochs): 
-    print(f"\nEpoch {epoch+1}/{epochs}")
-    train(model, train_loader, optimizer, loss_func, device)
-    test(model, test_loader, device)
+    epochs = 10
+    for epoch in range(epochs): 
+        print(f"\nEpoch {epoch+1}/{epochs}")
+        train(model, train_loader, optimizer, loss_func, device)
+        test(model, test_loader, device)
 
-torch.save(model.state_dict(), "mnist_cnn.pth")
+    torch.save(model.state_dict(), "bin/mnist_cnn.pth")
