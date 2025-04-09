@@ -93,3 +93,5 @@ for epoch in range(epochs):
     print(f"\nEpoch {epoch+1}/{epochs}")
     train(model, train_loader, optimizer, loss_func, device)
     test(model, test_loader, device)
+
+torch.save(model.state_dict(), "mnist_cnn.pth")
